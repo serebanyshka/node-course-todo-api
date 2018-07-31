@@ -6,8 +6,5 @@ const url = "mongodb://user:todo2018@ds261521.mlab.com:61521/todoapp"
 mongoose.Promise = global.Promise;
 mongoose.connect(url, {useNewUrlParser: true});
 
-const connect = (name. psw) => {
-  mongoose.connect(url, {useNewUrlParser: true});
-}
 
 module.exports = { mongoose };
