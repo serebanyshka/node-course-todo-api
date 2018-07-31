@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
-const url = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(url, {useNewUrlParser: true});
+console.log(uri);
+mongoose.connect(uri, {useNewUrlParser: true});
 
 
 module.exports = { mongoose };
