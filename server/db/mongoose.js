@@ -1,13 +1,8 @@
 const mongoose = require('mongoose');
 
-let uri = process.env.MONGODB_URI || process.env.HEROKU_POSTGRESQL;
+const uri = process.env.MONGODB_URI || 'mongodb://user:todo2018@ds261521.mlab.com:61521/todoapp'; //connect to mongodb with heroku
 mongoose.Promise = global.Promise;
-console.log(uri);
-if(!uri) {
-  uri = 'mongodb://user:todo2018@ds261521.mlab.com:61521/todoapp';
-}
-console.log(uri);
-mongoose.connect(uri, {useNewUrlParser: true});
 
+mongoose.connect(uri, {useNewUrlParser: true});
 
 module.exports = { mongoose };
