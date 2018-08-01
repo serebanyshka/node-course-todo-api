@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = process.env.MONGODB_URI || process.env.HEROKU_POSTGRESQL;
+let uri = process.env.MONGODB_URI || process.env.HEROKU_POSTGRESQL;
 mongoose.Promise = global.Promise;
 console.log(uri);
 if(!uri) {
