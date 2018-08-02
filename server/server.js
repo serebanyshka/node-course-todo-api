@@ -14,6 +14,20 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.post('/users', (req, res) => {
+  const {email, password} = req.body;
+  const user = new User({ email, password });
+
+  user.save()
+    .then(() => {
+      return user.generateAuthToken();
+    })
+    .then( token => {
+      res.status(200).header('x-auth', token).send(user);
+    })
+    .catch(err => res.status(400).send(err));
+});
+
 app.delete('/todos/:id', (req, res) => {
   const _id = req.params.id;
 
