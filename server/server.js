@@ -1,6 +1,5 @@
 require('./config/config.js')
 
-const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ObjectID } = require('mongodb');
@@ -50,12 +49,14 @@ app.delete('/todos/:id', (req, res) => {
 
 app.patch('/todos/:id', (req, res) => {
   const _id = req.params.id;
-  const body = _.pick(req.body, ['text', 'completed']);
+  const {text, completed} = req.body;
+  const body = { text, completed };
+
   if(!ObjectID.isValid(_id)) {
     return res.status(404).send();
   }
 
-  if(_.isBoolean(body.completed) && body.completed) {
+  if( typeof completed === 'boolean' && completed) {
     body.completedAt = (new Date()).getTime();
   } else {
     body.completed = false;
