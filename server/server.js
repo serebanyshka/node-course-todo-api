@@ -19,13 +19,21 @@ app.post('/users', (req, res) => {
   const user = new User({ email, password });
 
   user.save()
-    .then(() => {
-      return user.generateAuthToken();
-    })
-    .then( token => {
-      res.status(200).header('x-auth', token).send(user);
-    })
+    .then(() => user.generateAuthToken())
+    .then( token => res.status(200).header('x-auth', token).send(user))
     .catch(err => res.status(400).send(err));
+});
+
+app.post('/users/login', (req, res) => {
+  const { email, password } = req.body;
+  
+  User
+    .findByCredentials(email, password)
+    .then(user => {
+      return user.generateAuthToken()
+        .then(token => res.status(200).header('x-auth', token).send(user))
+    })
+    .catch(err => res.status(400).send());
 });
 
 app.get('/users/me', authenticate, (req, res) => {
